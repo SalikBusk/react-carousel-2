@@ -5,16 +5,66 @@ React Splide er en Komponent til React til en Splide-Slider/Carousel. Splide er 
 ## Brug
     npm install @splidejs/react-splide
 
-Brug denne i din app.
+Import
 
-    import { Splide, SplideSlide } from '@splidejs/react-splide';
+    import { Splide, SplideSlide } from "@splidejs/react-splide";
+
+#### interface
+    interface CardData {
+      title: string;
+      imageUrl: string;
+    }
+
+    interface CardSliderProps {
+      cards: CardData[];
+    }
+
+#### Options
+
+Fortæller hvordan slider skal fungere
+
+    
+    const splideOptions = {
+      type: "loop",
+      autoplay: false,
+      arrows: false,
+      perMove: 1,
+      pagination: false,
+      gap: 20,
+      breakpoints: {
+        1536: {
+          perPage: 4,
+          drag: false,
+        },
+         - // - 
+         419: {
+          perPage: 1,
+          peek: 30,
+          padding: '1rem',
+          drag: true,
+          autoplay: true,
+        },
+       },
+     };
 
 
-    <Splide>
-      <SplideSlide>
-        <img src="image1.jpg" alt="Image 1"/>
-      </SplideSlide>
-      <SplideSlide>
-        <img src="image2.jpg" alt="Image 2"/>
-      </SplideSlide>
-    </Splide>
+### App 
+
+    <div className="overflow-x-hidden">
+      <div className="w-calc(125vw + 30px) cursor-pointer xl:cursor-default">
+        <Splide options={splideOptions}>
+          {cards.map((card, index) => (
+            <SplideSlide key={index}>
+              <figure>
+                <img
+                  className="w-full h-[38vh] rounded-[10px] object-cover"
+                  src={card.imageUrl}
+                  alt={card.title}
+                />
+                <h3>{card.title}</h3>
+              </figure>
+            </SplideSlide>
+          ))}
+        </Splide>
+      </div>
+    </div>
